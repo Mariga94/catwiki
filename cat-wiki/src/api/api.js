@@ -1,14 +1,24 @@
-const myHeaders = new Headers([
-  ["Content-Type", "application/json"],
-  [
-    "x-api-key",
-    "ec74915c5af2889e7fef06103762305ccd1e27582840da9d41fe367277284fa0",
-  ],
-]);
-const BASE_URL = `https://api.thedogapi.com/v1/`
-async function fetchDOGAPI(endpoint) {
-    let response = await fetch(`${BASE_URL}${endpoint}`, {...myHeaders})
-    return response.json()
+async function fetchCatData(endpoint) {
+  const headers = new Headers([
+    ["Content-Type", "application/json"],
+    [
+      "x-api-key",
+      "live_r58FkMjEMIlUYNE8DQH7zWSHlMdZwJa5pjRxiLWxftmD1AWab19iNeVMKGhHlX4x",
+    ],
+  ]);
+  try {
+    const response = await fetch(`https://api.thecatapi.com/v1/${endpoint}`, {
+      ...headers,
+    });
+    if (!response.ok) {
+      throw new Error("Request failed");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
 }
 
-export default fetchDOGAPI
+export default fetchCatData;
